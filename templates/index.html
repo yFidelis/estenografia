@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Esteganografia com Imagens</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Esteganografia de Imagens</h1>
+
+    <div class="section">
+      <h2>📥 Inserir mensagem</h2>
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/png" required><br>
+        <textarea name="message" placeholder="Digite sua mensagem secreta" required></textarea><br>
+        <button type="submit" name="hide">Codificar</button>
+      </form>
+    </div>
+
+    {% if image_path %}
+      <div class="section">
+        <h3>Imagem com mensagem</h3>
+        <img id="preview" src="{{ image_path }}" alt="Imagem gerada">
+        <p><a class="download-link" href="/download">⬇️ Baixar imagem</a></p>
+      </div>
+    {% endif %}
+
+    <div class="section">
+      <h2>🔎 Ler mensagem</h2>
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/png" required><br>
+        <button type="submit" name="reveal">Extrair</button>
+      </form>
+    </div>
+
+    {% if message %}
+      <div class="section result">
+        <h3>📨 Mensagem extraída:</h3>
+        <p id="copiable-message">{{ message }}</p>
+        <button onclick="copyMessage()">📋 Copiar mensagem</button>
+      </div>
+    {% endif %}
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
